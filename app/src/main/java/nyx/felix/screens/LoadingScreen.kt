@@ -23,38 +23,41 @@ import nyx.felix.R
 @Composable
 fun LoadingScreen() {
     val infoTexts = listOf(
-        "I like you.", "How is it?", "Tap me!", "You deserve it <3", "Sei meraviglioso!", "voglio bene <3"
+        "I like you.",
+        "How is it?",
+        "Tap me!",
+        "You deserve it <3",
+        "Sei meraviglioso!",
+        "voglio bene <3",
+        "Your own app!",
+        "Do you like this?",
+        "You are cute af",
+        "Hug? :3",
+        "More Lasagna?",
+        "My Gnocchi goddess!"
     )
+
     val infoText = remember { mutableStateOf(infoTexts[randomNumber(infoTexts.size)]) }
 
     Column(
         Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .clickable { infoText.value = infoTexts[randomNumber(infoTexts.size)] }
             .padding(32.dp),
         Arrangement.Center,
         Alignment.CenterHorizontally,
     ) {
 
-        Image(painterResource( R.drawable.appicon), "Loading Image",Modifier.size(50.dp))
+        Image(painterResource(R.drawable.appicon), "Loading Image", Modifier.size(50.dp))
 
-        Row(Modifier
-            .padding(top = 16.dp)
-            .clip(RoundedCornerShape(6.dp))
-            .clickable { infoText.value = infoTexts[randomNumber(infoTexts.size)] }
-            .padding(4.dp),){
-            CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
-
-            Text(
-                infoText.value,
-                Modifier.padding(start = 8.dp),
-                White,
-                16.sp
-            )
-        }
-
-
+        Text(
+            infoText.value,
+            Modifier.padding(16.dp),
+            White,
+            16.sp
+        )
     }
 }
 
-private fun randomNumber(length: Int) =  (Math.random() * length).toInt()
+private fun randomNumber(length: Int) = (Math.random() * length).toInt()

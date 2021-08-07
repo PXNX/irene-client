@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import nyx.felix.data.Repository
@@ -20,7 +21,8 @@ class MainViewModel : ViewModel() {
     private fun fetchContent() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                result.value = Status.Success(Repository.getText())
+                delay(4000L)
+                result.value = Status.Success(Repository.getTextLocally())
             } catch (e: Exception) {
                 Log.e(TAG, e.message!!)
                 result.value = Status.Failure(e)
