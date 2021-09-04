@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "nyx.felix"
-        minSdk 21
-        targetSdk 30
+        minSdk 26
+        targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "ti voglio bene"
 
         vectorDrawables {
             useSupportLibrary true
@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -50,7 +50,6 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.3.1'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2'
-
     implementation "io.ktor:ktor-client-core:$ktor_version"
     implementation "io.ktor:ktor-client-serialization:$ktor_version"
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"

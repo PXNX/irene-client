@@ -5,22 +5,23 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ import nyx.felix.screens.ErrorScreen
 import nyx.felix.screens.LoadingScreen
 import nyx.felix.ui.theme.FelixTheme
 import nyx.felix.ui.theme.Teal200
+import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
 
@@ -39,31 +41,54 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FelixTheme {
-                when (val result = viewModel.result.collectAsState().value) {
-                    is Loading -> {
-                        Log.w(TAG, "Loading")
-                        LoadingScreen()
+
+                val currentDate = LocalDate.now()
+
+                //or move this to the server and simply return a different story?
+                when {
+                    currentDate.dayOfMonth == 3 && currentDate.monthValue == 10 -> {
+
                     }
 
-                    is Success -> {
-                        Log.w(TAG, "Success")
-                        Content(result.data as List<String>)
+                    currentDate.dayOfMonth == 14 && currentDate.monthValue == 2 -> {
+
                     }
 
-                    is Failure -> {
-                        val e = result.exception as Exception
+                    currentDate.dayOfMonth == 24 && currentDate.monthValue == 12 -> {
 
-                        Log.e(
-                            TAG,
-                            "Loading $TAG failed: ${e.message}\n\n--- Stacktrace: ${
-                                Log.getStackTraceString(e)
-                            }"
-                        )
-
-                        val msg = e.message!!
-
-                        ErrorScreen("Loading $TAG failed.", msg)
                     }
+
+                    else -> {
+                        viewModel.fetchContent()
+
+                        when (val result = viewModel.result.collectAsState().value) {
+                            is Loading -> {
+                                Log.w(TAG, "Loading")
+                                LoadingScreen()
+                            }
+
+                            is Success -> {
+                                Log.w(TAG, "Success")
+                                Content(result.data as List<String>)
+                            }
+
+                            is Failure -> {
+                                val e = result.exception as Exception
+
+                                Log.e(
+                                    TAG,
+                                    "Loading $TAG failed: ${e.message}\n\n--- Stacktrace: ${
+                                        Log.getStackTraceString(e)
+                                    }"
+                                )
+
+                                val msg = e.message!!
+
+                                ErrorScreen("Loading $TAG failed.", msg)
+                            }
+                        }
+                    }
+
                 }
 
 
@@ -97,7 +122,7 @@ class MainActivity : ComponentActivity() {
                 .padding(16.dp), Alignment.Center) {
 
 
-            LazyColumn {
+            LazyColumn(Modifier.fillMaxWidth()) {
                 item {
                     Text(
                         texts[page],
@@ -107,6 +132,32 @@ class MainActivity : ComponentActivity() {
                 }
 
 
+            }
+        }
+
+
+        val enabled = true
+
+        val backCallback = remember {
+            object : OnBackPressedCallback(enabled) {
+                override fun handleOnBackPressed() {
+                    if (page > 0) {
+                        page--
+                    }
+                }
+            }
+        }
+
+        val backDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current) {
+            "No OnBackPressedDispatcherOwner was provided via LocalOnBackPressedDispatcherOwner"
+        }.onBackPressedDispatcher
+        val lifecycleOwner = LocalLifecycleOwner.current
+        DisposableEffect(lifecycleOwner, backDispatcher) {
+            // Add callback to the backDispatcher
+            backDispatcher.addCallback(lifecycleOwner, backCallback)
+            // When the effect leaves the Composition, remove the callback
+            onDispose {
+                backCallback.remove()
             }
         }
 

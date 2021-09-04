@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,7 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -28,7 +26,7 @@ fun LoadingScreen() {
         "Tap me!",
         "You deserve it <3",
         "Sei meraviglioso!",
-        "voglio bene <3",
+        "Ti voglio bene <3",
         "Your own app!",
         "Do you like this?",
         "You are cute af",
@@ -37,7 +35,7 @@ fun LoadingScreen() {
         "My Gnocchi goddess!"
     )
 
-    val infoText = remember { mutableStateOf(infoTexts[randomNumber(infoTexts.size)]) }
+    val infoText = remember { mutableStateOf(infoTexts[0]) }
 
     Column(
         Modifier
@@ -57,6 +55,11 @@ fun LoadingScreen() {
             White,
             16.sp
         )
+
+        CircularProgressIndicator(
+            Modifier
+                .size(14.dp)
+                .padding(16.dp), strokeWidth = 2.dp)
     }
 }
 

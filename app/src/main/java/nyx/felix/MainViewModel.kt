@@ -8,17 +8,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import nyx.felix.data.Repository
+import java.time.LocalDate
 
 class MainViewModel : ViewModel() {
 
     private val TAG = "MainViewModel"
     val result = MutableStateFlow<Status<Any>>(Status.Loading())
 
-    init {
-        fetchContent()
-    }
-
-    private fun fetchContent() {
+ fun fetchContent() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 delay(4000L)
