@@ -4,7 +4,16 @@ task clean(type: Delete) {
 
 buildscript {
     ext {
-        compose_version = '1.0.1'
+        compose_version = '1.0.2'
         ktor_version = '1.6.3'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.13.4'
     }
 }

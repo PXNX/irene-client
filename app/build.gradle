@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id'org.jetbrains.kotlin.plugin.serialization'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 }
 
 android {
@@ -11,11 +12,17 @@ android {
         applicationId "nyx.felix"
         minSdk 26
         targetSdk 31
-        versionCode 1
+        versionCode 2
         versionName "ti voglio bene"
 
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "ti-voglio-bene.apk"
+            }
         }
     }
 
@@ -54,4 +61,8 @@ dependencies {
     implementation "io.ktor:ktor-client-serialization:$ktor_version"
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
     implementation "io.ktor:ktor-client-cio:$ktor_version"
+
+    implementation("io.coil-kt:coil-compose:1.3.2")
+
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 }

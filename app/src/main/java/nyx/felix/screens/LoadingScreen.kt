@@ -21,18 +21,20 @@ import nyx.felix.R
 @Composable
 fun LoadingScreen() {
     val infoTexts = listOf(
-        "I like you.",
-        "How is it?",
         "Tap me!",
+        "I like you.",
+        "You. Are. Awesome.",
+        "You're wholesome and kind. Just an incredible human being...",
+        "How is it?",
         "You deserve it <3",
         "Sei meraviglioso!",
-        "Ti voglio bene <3",
+        "Ti voglio bene \uD83D\uDE0A",
         "Your own app!",
         "Do you like this?",
-        "You are cute af",
+        "You are cute af \uD83D\uDE0A",
         "Hug? :3",
         "More Lasagna?",
-        "My Gnocchi goddess!"
+        "The Gnocchi goddess!"
     )
 
     val infoText = remember { mutableStateOf(infoTexts[0]) }
@@ -59,7 +61,8 @@ fun LoadingScreen() {
         CircularProgressIndicator(
             Modifier
                 .size(14.dp)
-                .padding(16.dp), strokeWidth = 2.dp)
+                .padding(16.dp), strokeWidth = 2.dp
+        )
     }
 }
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "972488705266",
+    "project_id": "irene-11736",
+    "storage_bucket": "irene-11736.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972488705266:android:673f57e4d984abd31dbc6b",
+        "android_client_info": {
+          "package_name": "nyx.felix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972488705266-3qes3t7oh0ulkla3daibfklks3db6bf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nyx.felix",
+            "certificate_hash": "4913c4290904b422be07625e7d6043e8afed636c"
+          }
+        },
+        {
+          "client_id": "972488705266-11ueiuo4ib1itfsdhka8qhe3ikprfahi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXurB_H4qh9af8w5Syq7NzB_owqLlr9yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972488705266-11ueiuo4ib1itfsdhka8qhe3ikprfahi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
